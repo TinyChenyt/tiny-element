@@ -26,6 +26,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        additionalData: `
+            @use "@/styles/variables.scss" as *;
+          `,
         charset: false // sass编译时禁用css的编码(Element3 bug，后续可删除该配置)
       }
     }

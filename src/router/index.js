@@ -4,6 +4,8 @@ import localStorage from '@/utils/localStorage';
 import admin from './modules/admin';
 import echarts from './modules/echarts';
 
+export const Layout = () => import('@/layout/index.vue');
+
 // 路由规则
 const routes = [
   // {
@@ -19,7 +21,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/home.vue'),
+    component: Layout,
     redirect: '/element/button',
     children: [
       ...admin,
