@@ -1,9 +1,12 @@
 import localStorage from './localStorage';
+import rules from './rules';
 
 export default {
-  localStorage
+  localStorage,
+  rules
 };
 
 export {
-  localStorage
+  localStorage,
+  rules
 };

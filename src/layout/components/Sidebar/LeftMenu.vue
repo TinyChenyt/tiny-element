@@ -28,7 +28,8 @@ const resolvePath = (routePath) => {
 
   return fullPath;
 };
-console.log(props.menuList, '----');
+
+
 </script>
 
 <template>

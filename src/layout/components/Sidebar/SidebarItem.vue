@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import path from 'path-browserify';
 import AppLink from './Link.vue';
 import Item from './Item.vue';
+import { useTagsViewStore } from '@/store/modules/tagsView';
 
 const props = defineProps({
   item: {
@@ -18,6 +19,8 @@ const props = defineProps({
     default: false
   }
 });
+
+const tagsViewStore = useTagsViewStore();
 
 const onlyOneChild = ref(); // 临时变量，唯一子路由
 
@@ -59,6 +62,18 @@ const resolvePath = (routePath) => {
 
   return fullPath;
 };
+
+const selectMenuItem = (route) => {
+  console.log('route: ', route);
+  if (route.meta.title) {
+    tagsViewStore.addView({
+      name: route.name,
+      title: route.meta.title[route.meta.title.length - 1],
+      path: resolvePath(route.path),
+      keepAlive: true
+    });
+  }
+};
 </script>
 
 <template>
@@ -67,7 +82,8 @@ const resolvePath = (routePath) => {
     <template
       v-if="hasOneShowingChild(props.item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren)">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !props.isNest }">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !props.isNest }"
+          @click="selectMenuItem(onlyOneChild)">
           <item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :title="onlyOneChild.meta.title"></item>
         </el-menu-item>
       </app-link>

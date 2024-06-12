@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { rules } from '@/utils';
 
 const props = defineProps({
   to: {
@@ -10,6 +11,8 @@ const props = defineProps({
 
 const router = useRouter();
 
+console.log(props.to);
+
 function push() {
   router.push(props.to).catch((err) => {
     console.log(err);
@@ -18,11 +21,11 @@ function push() {
 </script>
 
 <template>
-  <a v-if="to" :href="to" rel="noopener">
+  <a v-if="rules.isExternal(to)" :href="to" rel="noopener">
     <slot />
   </a>
 
-  <div v-else @click="push">
+  <div @click.prevent="push">
     <slot />
   </div>
 </template>

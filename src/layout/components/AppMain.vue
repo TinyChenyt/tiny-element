@@ -2,6 +2,7 @@
 import { useTagsViewStore } from '@/store/modules/tagsView';
 
 const tagsViewStore = useTagsViewStore();
+console.log('tagsViewStore: ', tagsViewStore.cachedViews, tagsViewStore.visitedViews);
 </script>
 
 <template>
